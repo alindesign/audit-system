@@ -16,12 +16,13 @@ handling null values on both the previous and current object. Use Java or Kotlin
 5. The id of a list item must be a field annotated with @AuditKey or have the name
    'id'. If no field meets this requirement, throw an exception that indicates that the audit
    system lacks the information it needs to determine what has changed.
+
 ## Examples:
-1. {"property": "firstName", "previous": "James", "current": "Jim"}
-2. {"property": "subscription.status", "previous": "ACTIVE", "current": "EXPIRED"}
-3. {"property": "services", "added": ["Oil Change"], "removed": ["Interior/Exterior Wash"]}
-4. {"property": "vehicles[v_1].displayName", "previous": "My Car", "current": "23 Ferrari
-   296 GTS"}
+1. `{"property": "firstName", "previous": "James", "current": "Jim"}`
+2. `{"property": "subscription.status", "previous": "ACTIVE", "current": "EXPIRED"}`
+3. `{"property": "services", "added": ["Oil Change"], "removed": ["Interior/Exterior Wash"]}`
+4. `{"property": "vehicles[v_1].displayName", "previous": "My Car", "current": "23 Ferrari
+   296 GTS"}`
 
 ## What to Submit:
 - The class should be named DiffTool and have a single method `diff` that takes the
