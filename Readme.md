@@ -76,3 +76,6 @@ The diff tool is checking between two objects based on basic flow:
 It took me around 4-5 hours to complete the task. I've spent most of the time
 on building and testing the diff tool (2-3hours), while the rest of the time was
 allocated to optimize, research for best practices and document the project.
+
+Over the weekend I've been checking other possible issues and added more testing to
+increase code coverage.
