@@ -18,6 +18,10 @@ class DiffTool {
 
         // Compare the objects based on their types
         when {
+            // If any of the values is a list, we'll consider a compare between lists
+            // even if the other value is null.
+            // The type will be enforced by the T type from the function signature, meaning that
+            // the type can be either a List<*> or a null.
             previous is List<*> || current is List<*> -> {
                 val previousList: List<*> = if (previous == null) listOf<Any>() else previous as List<*>
                 val currentList: List<*> = if (current == null) listOf<Any>() else current as List<*>
@@ -25,6 +29,8 @@ class DiffTool {
                 compareLists(path, previousList, currentList, changes)
             }
 
+            // If any of the values is a map, we'll consider a compare between maps, like the list case,
+            // the values could be a map or a null as the type is enforced by the T type from the function signature.
             previous is Map<*, *> || current is Map<*, *> -> {
                 val previousMap: Map<*, *> = if (previous == null) mapOf<Any, Any>() else previous as Map<*, *>
                 val currentMap: Map<*, *> = if (current == null) mapOf<Any, Any>() else current as Map<*, *>
@@ -32,10 +38,12 @@ class DiffTool {
                 compareMap(path, previousMap, currentMap, changes)
             }
 
+            // In case any of the values is a primitive, we'll compare the values directly
             isPrimitive(previous) || isPrimitive(current) -> {
                 comparePrimitive(path, previous, current, changes)
             }
 
+            // If none of the above cases are true, we'll consider the values as objects and compare their properties.
             else -> {
                 compareProperties(path, previous, current, changes)
             }
@@ -72,8 +80,8 @@ class DiffTool {
             return
         }
 
-        val isPreviousPrimitiveList = previous.any { isPrimitive(it) }
-        val isCurrentPrimitiveList = previous.any { isPrimitive(it) }
+        val isPreviousPrimitiveList = previous.all { isPrimitive(it) }
+        val isCurrentPrimitiveList = current.all { isPrimitive(it) }
         val isPrimitiveList = isPreviousPrimitiveList && isCurrentPrimitiveList
 
         // throw an exception if we have a primitive list and a non-primitive list

@@ -1,7 +1,5 @@
 import com.google.gson.Gson
 import diff.DiffTool
-import diff.ListUpdate
-import diff.PropertyUpdate
 import models.*
 
 fun main() {
